@@ -1,24 +1,20 @@
 class Solution {
 public:
-    bool check(int left,int right,string s){
-        while(left<=right){
-            if(s[left]!=s[right]){
-                return false;
-            }
-            left++;
-            right--;
-
+    int cal(string s,int l,int r){
+        int cnt =0;
+        while(l>=0 && r<s.size() && s[l]==s[r]){
+            l--;
+            r++;
+            cnt++;
         }
-        return true;
+        return cnt;
     }
     int countSubstrings(string s) {
         int cnt=0;
         for(int i=0; i<s.size(); i++){
-            for(int j=i; j<s.size(); j++){
-                if(check(i,j,s)==true){
-                    cnt++;
-                }
-            }
+            int odd = cal(s,i,i);
+            int even = cal(s,i,i+1);
+            cnt += even+odd;
         }
         return cnt;
     }
