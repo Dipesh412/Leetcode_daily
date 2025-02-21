@@ -1,24 +1,17 @@
 class Solution {
 public:
     int characterReplacement(string s, int k) {
-        int left=0,right=0,maxFre=0,maxLength = 0;
-        int hash[26]={0};
-        while(right<s.size()){
-            hash[s[right]-'A']++;
-            maxFre = max(maxFre,hash[s[right]-'A']);
-            while((right-left+1)-maxFre>k){
-                hash[s[left]-'A']--;
-                maxFre =0;
-                for(int i=0; i<25; i++){
-                    maxFre = max(maxFre,hash[i]);
-                }
-                left++;
-            }
-            if((right-left+1)-maxFre<=k){
-                maxLength = max(maxLength,(right-left+1));
-            }
-            right++;
+        int l=0,maxifeq = 0, maxi=0;
+        unordered_map<char,int>mp;
+        for(int i=0; i<s.size(); i++){
+            mp[s[i]]++;
+            maxifeq = max(maxifeq,mp[s[i]]);
+            while((i-l+1)-maxifeq>k){
+                mp[s[l]]--;
+                l++;
+            } 
+            maxi = max(maxi,(i-l+1));
         }
-        return maxLength;
+        return maxi;
     }
 };
